@@ -12,6 +12,13 @@ def personal_newAccount():
       "result": "0x407d73d8a49eeb85d32cf465507dd71d507100c1"
     }
 
+def eth_blockNumber():
+    return {
+      "id": 1,
+      "jsonrpc": "2.0",
+      "result": "0x4b7" # 1207
+    }
+
 def create_app(): 
     app = Flask(__name__)
 
@@ -42,7 +49,8 @@ def create_app():
         response = None
         if data['method'] == 'personal_newAccount':
             response = personal_newAccount()
-        
+        elif data['method'] == 'eth_blockNumber':
+            response = eth_blockNumber()
         log('Response')
         log(response)
 

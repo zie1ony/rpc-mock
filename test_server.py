@@ -17,4 +17,14 @@ def test_personal_newAccount(client):
     }
 
     resp = client.post('/', json=data)
-    print('asd', resp)
+    print('New Account', resp.data)
+
+def test_eth_blockNumber(client):
+    data = {
+        "jsonrpc":"2.0",
+        "id":1,
+        "method":"eth_blockNumber",
+        "params": []
+    }
+    resp = client.post('/', json=data)
+    print('Block number', resp.data)

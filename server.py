@@ -1,5 +1,9 @@
 from flask import Flask
 from flask import request
+import json
+
+def log(value):
+    print("[SERVER] %s" % value)
 
 def personal_newAccount():
     return {
@@ -19,14 +23,30 @@ def create_app():
     @app.route('/<a>/<b>/<c>', methods=METHODS)
     def catch_all(**kwargs):
         print('')
-        print("data", request.data)
-        if not request.data: 
-            return personal_newAccount()
+        log('New request')
+        if not request.data:
+            log('No data. Exiting') 
+            return 'no data'
 
-        if request.data.method == 'personal_newAccount':
-            return personal_newAccount()
+        data = request.get_json()
+        log('Data:')
+        log(data)
+
+        if not data['method']:
+            log('No method. Exiting') 
+            return 'no method'
+
+        log('Method:')
+        log(data['method'])
+
+        response = None
+        if data['method'] == 'personal_newAccount':
+            response = personal_newAccount()
         
-        return ''
+        log('Response')
+        log(response)
+
+        return response
 
     return app
 

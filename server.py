@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 import json
 
+
 def log(value):
     print("[SERVER] %s" % value)
 
@@ -9,11 +10,19 @@ def personal_newAccount():
     return "0x407d73d8a49eeb85d32cf465507dd71d507100c1"
 
 def eth_blockNumber():
-    return "0x4b7" # 1207
+    return "0x4b8" # 1208
 
 def eth_getBlockByNumber():
     return {
-        "transactions": []
+        "transactions": [{
+            "input": "0x00",
+            "to": "0x407d73d8a49eeb85d32cf465507dd71d507100c1",
+            "value": "0xb1a2bc2ec50000",
+            "hash": "0xaaaa",
+            "transactionIndex": "0x0",
+            "blockNumber": "0x4b8",
+            "status": "0x01"
+        }]
     }
 
 

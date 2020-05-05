@@ -6,18 +6,16 @@ def log(value):
     print("[SERVER] %s" % value)
 
 def personal_newAccount():
-    return {
-      "id": 1,
-      "jsonrpc": "2.0",
-      "result": "0x407d73d8a49eeb85d32cf465507dd71d507100c1"
-    }
+    return "0x407d73d8a49eeb85d32cf465507dd71d507100c1"
 
 def eth_blockNumber():
+    return "0x4b7" # 1207
+
+def eth_getBlockByNumber():
     return {
-      "id": 1,
-      "jsonrpc": "2.0",
-      "result": "0x4b7" # 1207
+        "transactions": []
     }
+
 
 def create_app(): 
     app = Flask(__name__)
@@ -43,17 +41,26 @@ def create_app():
             log('No method. Exiting') 
             return 'no method'
 
+        method = data['method']
         log('Method:')
-        log(data['method'])
+        log(method)
 
-        response = None
-        if data['method'] == 'personal_newAccount':
-            response = personal_newAccount()
-        elif data['method'] == 'eth_blockNumber':
-            response = eth_blockNumber()
+        result = None
+        if method == 'personal_newAccount':
+            result = personal_newAccount()
+        elif method == 'eth_blockNumber':
+            result = eth_blockNumber()
+        elif method == 'eth_getBlockByNumber':
+            result = eth_getBlockByNumber()
+
+        response = {
+          "id": 1,
+          "jsonrpc": "2.0",
+          "result": result
+        }
+
         log('Response')
         log(response)
-
         return response
 
     return app
